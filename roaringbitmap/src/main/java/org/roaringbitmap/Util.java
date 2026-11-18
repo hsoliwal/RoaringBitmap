@@ -1242,6 +1242,16 @@ public final class Util {
    * @param data - the data (sorted in place)
    */
   public static void partialRadixSort(int[] data) {
+    boolean alreadySorted = true;
+    for (int i = 1; i < data.length; i++) {
+      if ((data[i - 1] >>> 16) > (data[i] >>> 16)) {
+        alreadySorted = false;
+        break;
+      }
+    }
+    if (alreadySorted) {
+      return;
+    }
     int[] low = new int[257];
     int[] high = new int[257];
     for (int value : data) {
