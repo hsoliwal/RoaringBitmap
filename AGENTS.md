@@ -20,3 +20,14 @@ Relevant documentation locations:
 The fuzzing harnesses under `fuzz-tests/` and the deserialization tests in the test suite exist precisely to ensure the deserializers and the validators behave correctly under adversarial input. A report that treats "deserializing attacker-controlled bytes and then using the result without calling `validate()`" as a bug in the deserializer is a misunderstanding of the stated API contract.
 
 When triaging such reports, point to the validation requirement (`validate()`) documented in the README and close as "not a bug / user error / documented behavior."
+
+
+## Superset merge and history-audit rule (2026-11-18)
+
+Read [.github/MERGE_RULE.md](.github/MERGE_RULE.md) before changing an existing implementation or integrating any branch or PR.
+Preserve the supported additive API/behavior superset and select implementations by correctness, predictability, measured performance, then elegance.
+Audit all reachable history back to every root, all branches/tags and all PR states for lost code or regressions; preserve append-only history.
+Record actual UTC coverage and remaining work in [.github/HISTORY_AUDIT.tsv](.github/HISTORY_AUDIT.tsv); policy installation is not a completed source-history audit.
+Prefer verified Apache-2.0 sources and independent implementations while preserving all existing third-party rights; LLM rewriting does not remove license obligations.
+Detailed private recipe/proof records remain in canonical Synexia; the compact local policy and checkpoint make the rule discoverable here.
+<!-- MERGE-SUPERSET-HISTORY-20261118-2 -->
