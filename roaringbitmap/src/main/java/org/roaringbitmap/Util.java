@@ -23,8 +23,8 @@ public final class Util {
 
   /**
    * Skips exactly n bytes of the input. {@link DataInput#skipBytes} may skip fewer bytes than
-   * requested (e.g., with a {@code javax.crypto.CipherInputStream}); the remaining bytes are
-   * then consumed one at a time.
+   * requested (e.g., with a {@code javax.crypto.CipherInputStream}); retry progress-making
+   * skips before consuming the remainder one byte at a time.
    *
    * @param in the input
    * @param n the number of bytes to skip
@@ -32,7 +32,15 @@ public final class Util {
    * @throws IOException if an I/O error occurs
    */
   public static void skipFully(DataInput in, int n) throws IOException {
-    for (int remaining = n - in.skipBytes(n); remaining > 0; remaining--) {
+    int remaining = n - in.skipBytes(n);
+    while (remaining > 0) {
+      int skipped = in.skipBytes(remaining);
+      if (skipped <= 0) {
+        break;
+      }
+      remaining -= skipped;
+    }
+    while (remaining-- > 0) {
       in.readByte();
     }
   }
