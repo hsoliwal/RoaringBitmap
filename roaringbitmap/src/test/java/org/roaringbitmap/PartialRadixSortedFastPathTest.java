@@ -6,10 +6,11 @@ package org.roaringbitmap;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
-import org.junit.jupiter.api.Test;
 
 /** Stable unsigned-prefix radix sort regression including already sorted input. */
 public class PartialRadixSortedFastPathTest {
